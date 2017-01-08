@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>小技巧备忘录 | zhanqh</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">小技巧备忘录</h1><a id="logo" href="/.">zhanqh</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">小技巧备忘录</h1><div class="post-meta">Dec 4, 2016<span> | </span><span class="category"><a href="/categories/实践/">实践</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery-ajax-请求成功但不执行回调函数"><span class="toc-number">1.</span> <span class="toc-text">jQuery ajax 请求成功但不执行回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Charles-抓包-Chrome"><span class="toc-number">2.</span> <span class="toc-text">Charles 抓包 Chrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地调试项目"><span class="toc-number">3.</span> <span class="toc-text">本地调试项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-沙箱环境"><span class="toc-number">4.</span> <span class="toc-text">python 沙箱环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql"><span class="toc-number">5.</span> <span class="toc-text">mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iTerm2-快捷键"><span class="toc-number">6.</span> <span class="toc-text">iTerm2 快捷键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#双系统格式化-Ubuntu-分区后引导分区损坏，无法进入系统"><span class="toc-number">7.</span> <span class="toc-text">双系统格式化 Ubuntu 分区后引导分区损坏，无法进入系统</span></a></li></ol></div></div><div class="post-content"><h3 id="jQuery-ajax-请求成功但不执行回调函数"><a href="#jQuery-ajax-请求成功但不执行回调函数" class="headerlink" title="jQuery ajax 请求成功但不执行回调函数"></a>jQuery ajax 请求成功但不执行回调函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.post(<span class="string">'/bus/getByName'</span>, &#123;name: 35&#125;, <span class="keyword">function</span>(res)&#123;</div><div class="line">	console.log(res.data);</div><div class="line">&#125;, <span class="keyword">function</span>(err)&#123;</div><div class="line">	console.log(err)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>在 Chrome 里边看 Network 网络请求，显示请求成功返回状态码 200 ，但是后续两个函数都执行，看文档还没能发现错误，Google 一搜索 ajax 请求后回调函数不执行，有一种情况就是设置从服务器返回的预期的数据类型不对，然后一去看我设置了两个回调函数，jQuery 的 ajax 请求语法是没有设置错误情况的回调函数的，去掉后边一个毁掉函数就能执行了。</p>
+<h3 id="Charles-抓包-Chrome"><a href="#Charles-抓包-Chrome" class="headerlink" title="Charles 抓包 Chrome"></a>Charles 抓包 Chrome</h3><p>在 Charles 里边设置 proxy 代理在 Mac OS 环境下可能，再去 Chrome 里的 Proxy SwitchyOmega 中选择<strong>系统代理</strong>选项。</p>
+<h3 id="本地调试项目"><a href="#本地调试项目" class="headerlink" title="本地调试项目"></a>本地调试项目</h3><ul>
+<li>Mac OS开启防火墙后同一局域网内的终端无法通过访问，而本机访问正常，关闭防火墙即可。</li>
+<li><code>telnet 192.168.0.206 8001</code>    测试局域网内192.168.0.206的8001端口是否接通</li>
+</ul>
+<h3 id="python-沙箱环境"><a href="#python-沙箱环境" class="headerlink" title="python 沙箱环境"></a>python 沙箱环境</h3><p>~/workplace/virtualenv 目录下执行：<code>source ./duobao/bin/activate</code></p>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>进入服务器：<code>mysql -uroot -p</code><br>启动mysql：<code>mysql.server start</code></p>
+<h3 id="iTerm2-快捷键"><a href="#iTerm2-快捷键" class="headerlink" title="iTerm2 快捷键"></a>iTerm2 快捷键</h3><ol>
+<li>光标操作<ul>
+<li>ctrl + a: 到行首</li>
+<li>ctrl + e: 行末</li>
+<li>ctrl + r: 搜索命令历史，这个大家都应该很熟悉了</li>
+<li>ctrl + k: 删除到文本末尾</li>
+<li>ctrl + u: 删除一行</li>
+<li>ctrl + d: 删除当前字符</li>
+<li>ctrl + w: 删除光标前的单词</li>
+<li>Command + r:清屏(其实是滚到新的一屏，并没有清空)</li>
+</ul>
+</li>
+<li>标签页操作<ul>
+<li>Command + T: 新建标签页</li>
+<li>Command + W: 关闭标签页</li>
+<li>Command + 左方向键: 前一个标签页( Shift + Command + [ )</li>
+<li>Command + 右方向键: 后一个标签页( Shitf + Command + ] )</li>
+<li>Command + 标签页编号: 进入标签页1，2，3…</li>
+</ul>
+</li>
+<li>面板操作<ul>
+<li>Command + D: 垂直分割</li>
+<li>Command + Shift + D: 水平分割</li>
+<li>Command + [: 前一个面板</li>
+<li>Command + ]: 后一个面板</li>
+<li>Command + Option + 上下左右方向键: 切换到上/下/左/右面板</li>
+</ul>
+</li>
+<li>文本选取<ul>
+<li>鼠标双击选单词</li>
+<li>鼠标三击选整行</li>
+<li>选取某一部分，按住Shift，再点击某处，可以选取整个矩形内的文本</li>
+<li>Command + D: 调出搜索面板，按Tab可以将选取部分向右扩展，按Shift + Tab向左扩展，按回车转到下一个匹配位置</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>Command + Shift + h: 可以呼出复制历史</li>
+<li>鼠标选中某个路径或者某个词汇就自动复制</li>
+<li>Command + Shift + Enter: 面板全屏</li>
+</ul>
+</li>
+</ol>
+<h3 id="双系统格式化-Ubuntu-分区后引导分区损坏，无法进入系统"><a href="#双系统格式化-Ubuntu-分区后引导分区损坏，无法进入系统" class="headerlink" title="双系统格式化 Ubuntu 分区后引导分区损坏，无法进入系统"></a>双系统格式化 Ubuntu 分区后引导分区损坏，无法进入系统</h3><p>Windows &amp; Ubuntu 双系统直接格式化 Ubuntu 分区，grub 引导文件被损坏，开机后就进入 grub 命令行界面，Windows 系统也无法进入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">grub&gt; root=(hd0,gpt2)</div><div class="line">grub&gt; rootnoverify=(hd0,gpt2)</div><div class="line">grub&gt; chainloader /EFI/Microsoft/Boot/bootmgfw.efi</div><div class="line">grub&gt; boot</div></pre></td></tr></table></figure></p>
+<p>先通过 ls 命令列出所有的分区信息，然后输入<code>root (hd0</code>再按 Tab 键，获取相对具体的分区信息，确定 (hd0,gpt2) 之后就使用上述命令</p>
+<p>网上许多博客中的<code>chainloader +1</code>并没有用，必须使用<code>chainloader /EFI/Microsoft/Boot/bootmgfw.efi</code>命令。</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://blog.zhanqh.com/2016/12/04/小技巧备忘录/" data-id="ciwtgdsh80005mnrce7nsqkog" class="article-share-link">分享到</a><div class="tags"></div><div class="post-nav"><a href="/2017/01/08/2016-总结/" class="pre">2016 总结</a><a href="/2016/12/03/nginx实践笔记/" class="next">nginx实践笔记</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://blog.zhanqh.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/实践/">实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/工作笔记/" style="font-size: 15px;">工作笔记</a> <a href="/tags/h5/" style="font-size: 15px;">h5</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/hosts/" style="font-size: 15px;">hosts</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">zhanqh.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
