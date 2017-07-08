@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>正则表达式 &amp; Python 正则库 | zhanqh</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">正则表达式 &amp; Python 正则库</h1><a id="logo" href="/.">zhanqh</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-book"> 笔记</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">正则表达式 &amp; Python 正则库</h1><div class="post-meta">May 27, 2017<span> | </span><span class="category"><a href="/categories/爬虫/">爬虫</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见匹配模式"><span class="toc-number">1.</span> <span class="toc-text">常见匹配模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re-match"><span class="toc-number">2.</span> <span class="toc-text">re.match</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#泛匹配"><span class="toc-number">2.1.</span> <span class="toc-text">泛匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匹配目标"><span class="toc-number">2.2.</span> <span class="toc-text">匹配目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贪婪匹配"><span class="toc-number">2.3.</span> <span class="toc-text">贪婪匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非贪婪匹配"><span class="toc-number">2.4.</span> <span class="toc-text">非贪婪匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匹配模式"><span class="toc-number">2.5.</span> <span class="toc-text">匹配模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转义"><span class="toc-number">2.6.</span> <span class="toc-text">转义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re-search"><span class="toc-number">3.</span> <span class="toc-text">re.search</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re-findall"><span class="toc-number">4.</span> <span class="toc-text">re.findall</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re-sub"><span class="toc-number">5.</span> <span class="toc-text">re.sub</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re-compile"><span class="toc-number">6.</span> <span class="toc-text">re.compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强烈建议"><span class="toc-number">7.</span> <span class="toc-text">强烈建议</span></a></li></ol></div></div><div class="post-content"><h2 id="常见匹配模式"><a href="#常见匹配模式" class="headerlink" title="常见匹配模式"></a>常见匹配模式</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\w</td>
+<td style="text-align:center">匹配字母数字及下划线</td>
+</tr>
+<tr>
+<td style="text-align:center">\W</td>
+<td style="text-align:center">匹配非字母数字及下划线</td>
+</tr>
+<tr>
+<td style="text-align:center">\s</td>
+<td style="text-align:center">匹配空白字符，等价于 [\t\n\r\f]</td>
+</tr>
+<tr>
+<td style="text-align:center">\S</td>
+<td style="text-align:center">匹配任意非空字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\d</td>
+<td style="text-align:center">匹配任意数字，等价与[0-9]</td>
+</tr>
+<tr>
+<td style="text-align:center">\D</td>
+<td style="text-align:center">匹配任意非数字</td>
+</tr>
+<tr>
+<td style="text-align:center">\A</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\Z</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\z</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\G</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">\n</td>
+<td style="text-align:center">匹配一个换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">\t</td>
+<td style="text-align:center">匹配一个制表符</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">匹配字符串的开头</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:center">匹配字符串的末尾</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">匹配任意字符，但不包括换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">[abc]</td>
+<td style="text-align:center">匹配 abc 中任意一个，等价于 a&#124;b&#124;c</td>
+</tr>
+<tr>
+<td style="text-align:center">[\^abc]</td>
+<td style="text-align:center">匹配除了 abc 之外的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">匹配 0 个或者多个表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">匹配 1 个或者多个表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">匹配 0 个或者 1 个片段，非贪婪模式</td>
+</tr>
+<tr>
+<td style="text-align:center">{n}</td>
+<td style="text-align:center">精确匹配 n 个表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">{m, n}</td>
+<td style="text-align:center">匹配 m 至 n 个表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">a&#124;b</td>
+<td style="text-align:center">匹配 a 或者 b</td>
+</tr>
+<tr>
+<td style="text-align:center">()</td>
+<td style="text-align:center">匹配括号内的表达式，也表示一个组，捕获模式</td>
+</tr>
+<tr>
+<td style="text-align:center">(?:)</td>
+<td style="text-align:center">非捕获模式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="re-match"><a href="#re-match" class="headerlink" title="re.match"></a>re.match</h2><p>re.match 从字符串的起始位置匹配一个模式，起始位置匹配不成功就返回 None</p>
+<figure class="highlight plain"><figcaption><span>string, flags=0)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 常规匹配</div><div class="line"></div><div class="line"></div><div class="line">```python</div><div class="line">import re</div><div class="line"></div><div class="line">content = &apos;Hello 123 4567 World_This is a Rexgex Demo&apos;</div><div class="line">print(len(content))</div><div class="line">result = re.match(&apos;^Hello\s\d\d\d\s\d&#123;4&#125;\s\w&#123;10&#125;.*Demo$&apos;, content)</div><div class="line">print(result)</div><div class="line">print(result.group())</div><div class="line">print(result.span())</div></pre></td></tr></table></figure>
+<pre><code>42
+&lt;_sre.SRE_Match object; span=(0, 42), match=&apos;Hello 123 4567 World_This is a Rexgex Demo&apos;&gt;
+Hello 123 4567 World_This is a Rexgex Demo
+(0, 42)
+</code></pre><h3 id="泛匹配"><a href="#泛匹配" class="headerlink" title="泛匹配"></a>泛匹配</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 123 4567 World_This is a Rexgex Demo'</span></div><div class="line">print(len(content))</div><div class="line">result = re.match(<span class="string">'^Hello.*Demo$'</span>, content)</div><div class="line">print(result)</div><div class="line">print(result.group())</div><div class="line">print(result.span())</div></pre></td></tr></table></figure>
+<pre><code>42
+&lt;_sre.SRE_Match object; span=(0, 42), match=&apos;Hello 123 4567 World_This is a Rexgex Demo&apos;&gt;
+Hello 123 4567 World_This is a Rexgex Demo
+(0, 42)
+</code></pre><h3 id="匹配目标"><a href="#匹配目标" class="headerlink" title="匹配目标"></a>匹配目标</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 123 4567 World_This is a Rexgex Demo'</span></div><div class="line">result = re.match(<span class="string">'^Hello\s(\d+)\s.*Demo$'</span>, content)</div><div class="line">print(result)</div><div class="line">print(result.group(<span class="number">1</span>))</div><div class="line">print(result.span())</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(0, 42), match=&apos;Hello 123 4567 World_This is a Rexgex Demo&apos;&gt;
+123
+(0, 42)
+</code></pre><h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 1234567 World_This is a Rexgex Demo'</span></div><div class="line">result = re.match(<span class="string">'^Hel.*(\d+)\s.*Demo$'</span>, content)</div><div class="line">print(result)</div><div class="line">print(result.group(<span class="number">1</span>))</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(0, 41), match=&apos;Hello 1234567 World_This is a Rexgex Demo&apos;&gt;
+7
+</code></pre><h3 id="非贪婪匹配"><a href="#非贪婪匹配" class="headerlink" title="非贪婪匹配"></a>非贪婪匹配</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 1234567 World_This is a Rexgex Demo'</span></div><div class="line">result = re.match(<span class="string">'^Hel.*?(\d+)\s.*Demo$'</span>, content)</div><div class="line">print(result)</div><div class="line">print(result.group(<span class="number">1</span>))</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(0, 41), match=&apos;Hello 1234567 World_This is a Rexgex Demo&apos;&gt;
+1234567
+</code></pre><h3 id="匹配模式"><a href="#匹配模式" class="headerlink" title="匹配模式"></a>匹配模式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 1234567 World_This\nis a Rexgex Demo'</span></div><div class="line"><span class="comment"># 加上 re.S 参数即可匹配换行符</span></div><div class="line">result = re.match(<span class="string">'^Hel.*?(\d+)\s.*Demo$'</span>, content, re.S)</div><div class="line">print(result)</div><div class="line">print(result.group(<span class="number">1</span>))</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(0, 41), match=&apos;Hello 1234567 World_This\nis a Rexgex Demo&apos;&gt;
+1234567
+</code></pre><h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'the price is $5.00'</span></div><div class="line"><span class="comment"># 特殊字符需要转义</span></div><div class="line">result = re.match(<span class="string">'th.*\$5\.00'</span>, content)</div><div class="line">print(result)</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(0, 18), match=&apos;the price is $5.00&apos;&gt;
+</code></pre><p>总结：尽量使用泛匹配，使用括号得到匹配目标，尽量使用非贪婪模式，有换行符就用 re.S</p>
+<h2 id="re-search"><a href="#re-search" class="headerlink" title="re.search"></a>re.search</h2><p>re.search 扫描整个字符串，并返回第一个成功的匹配</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = <span class="string">'Hello 1234567 World_This\nis a Rexgex Demo'</span></div><div class="line"><span class="comment"># 加上 re.S 参数即可匹配换行符</span></div><div class="line">result = re.search(<span class="string">'(\d+)'</span>, content, re.S)</div><div class="line">print(result)</div><div class="line">print(result.group(<span class="number">1</span>))</div></pre></td></tr></table></figure>
+<pre><code>&lt;_sre.SRE_Match object; span=(6, 13), match=&apos;1234567&apos;&gt;
+1234567
+</code></pre><h2 id="re-findall"><a href="#re-findall" class="headerlink" title="re.findall"></a>re.findall</h2><p>搜索字符串，以列表形式返回所有匹配结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">re.findall(<span class="string">'&lt;li.*?&gt;\s(&lt;a.*?&gt;)?(\w+)(&lt;/a&gt;)?\s*?&lt;/li&gt;'</span>, string, re.S)</div></pre></td></tr></table></figure>
+<h2 id="re-sub"><a href="#re-sub" class="headerlink" title="re.sub"></a>re.sub</h2><p>替换字符串中每一个匹配的字串，并返回替换后的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">string = re.sub(<span class="string">'&lt;a.*?&gt;|&lt;/a&gt;'</span>, <span class="string">''</span>, string)</div><div class="line">results = re.sub.findall(<span class="string">'&lt;li.*?&gt;(.*?)&lt;/li&gt;'</span>, string)</div><div class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</div><div class="line">    print(<span class="string">'result.strip()'</span>)</div></pre></td></tr></table></figure>
+<h2 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile"></a>re.compile</h2><p>将正则表达式字符串编译成正则对象，以便于复用该模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">content = requests.get(<span class="string">'https://book.douban.com'</span>).text</div><div class="line"><span class="comment"># print(content)</span></div><div class="line">pattern = re.compile(<span class="string">'&lt;li.*?cover.*?href="(.*?)".*?title="(.*?)".*?more-meta.*?author"&gt;(.*?)&lt;/span&gt;.*?year"&gt;(.*?)&lt;/span&gt;.*?&lt;/li&gt;'</span>, re.S)</div><div class="line">results = re.findall(pattern, content)</div><div class="line"><span class="comment"># print(results)</span></div><div class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</div><div class="line">    url,name,author,date = result</div><div class="line">    author = re.sub(<span class="string">'\s'</span>, <span class="string">''</span>, author)</div><div class="line">    date = re.sub(<span class="string">'\s'</span>, <span class="string">''</span>, date)</div><div class="line">    print(name, author, date, url)</div></pre></td></tr></table></figure>
+<h2 id="强烈建议"><a href="#强烈建议" class="headerlink" title="强烈建议"></a>强烈建议</h2><p>构建正则表达式时使用Python的r前缀，就不用考虑转义的问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line">re.match(<span class="string">r'^\d&#123;3&#125;\-\d&#123;3,8&#125;$'</span>, <span class="string">'020-12345'</span>)</div></pre></td></tr></table></figure>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://blog.zhanqh.com/2017/05/27/正则表达式/" data-id="cj4urfgfd0000nbrcrsfmvl8e" class="article-share-link">分享到</a><div class="tags"><a href="/tags/Python/">Python</a><a href="/tags/crawler/">crawler</a></div><div class="post-nav"><a href="/2017/05/30/BeautifulSoup 库/" class="pre">BeautifulSoup 库简单使用</a><a href="/2017/05/26/Requests 库常用方法/" class="next">Python 第三方 Requests 库使用</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://blog.zhanqh.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/实践/">实践</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/工作笔记/" style="font-size: 15px;">工作笔记</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/hosts/" style="font-size: 15px;">hosts</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/h5/" style="font-size: 15px;">h5</a> <a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Charles/" style="font-size: 15px;">Charles</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/crawler/" style="font-size: 15px;">crawler</a> <a href="/tags/Scrapy/" style="font-size: 15px;">Scrapy</a></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">zhanqh.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
